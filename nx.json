@@ -29,7 +29,17 @@
       "tags": [],
       "implicitDependencies": ["dicom-viewer"]
     },
-    "ui-libs": {
+    "ng-dicom-viewer": {
+      "tags": []
+    },
+    "ng-dicom-viewer-e2e": {
+      "tags": [],
+      "implicitDependencies": ["ng-dicom-viewer"]
+    },
+    "core-containers": {
+      "tags": []
+    },
+    "core-services": {
       "tags": []
     }
   }

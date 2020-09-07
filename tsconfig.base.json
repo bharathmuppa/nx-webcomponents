@@ -16,7 +16,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@webade-web-components/ui-libs": ["libs/ui-libs/src/index.ts"]
+      "@webade-web-components/core-containers": [
+        "libs/core-containers/src/index.ts"
+      ],
+      "@webade-web-components/core-services": [
+        "libs/core-services/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

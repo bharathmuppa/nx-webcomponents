@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'ui-libs',
+  name: 'core-services',
   preset: '../../jest.config.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'html'],
-  coverageDirectory: '../../coverage/libs/ui-libs',
+  coverageDirectory: '../../coverage/libs/core-services',
 };

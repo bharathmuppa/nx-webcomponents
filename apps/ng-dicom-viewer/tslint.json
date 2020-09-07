@@ -1,0 +1,20 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [
+      true,
+      "attribute",
+      "webadeWebComponents",
+      "camelCase"
+    ],
+    "component-selector": [
+      true,
+      "element",
+      "webade-web-components",
+      "kebab-case"
+    ]
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
+  }
+}
