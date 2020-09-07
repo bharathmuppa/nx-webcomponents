@@ -28,6 +28,9 @@
     "dicom-viewer-e2e": {
       "tags": [],
       "implicitDependencies": ["dicom-viewer"]
+    },
+    "ui-libs": {
+      "tags": []
     }
   }
 }

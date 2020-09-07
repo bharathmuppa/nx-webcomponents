@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@webade-web-components/ui-libs": ["libs/ui-libs/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
