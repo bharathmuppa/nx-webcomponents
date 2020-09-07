@@ -1,0 +1,33 @@
+{
+  "npmScope": "webade-web-components",
+  "affected": {
+    "defaultBase": "master"
+  },
+  "implicitDependencies": {
+    "workspace.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "dicom-viewer": {
+      "tags": []
+    },
+    "dicom-viewer-e2e": {
+      "tags": [],
+      "implicitDependencies": ["dicom-viewer"]
+    }
+  }
+}
