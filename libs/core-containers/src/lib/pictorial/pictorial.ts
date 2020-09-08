@@ -1,6 +1,8 @@
 const template  = `
 <style>
-
+:host{
+    box-sizing: border-box;
+}
 .pictorial{
     width : 100px;
     height: 100px;

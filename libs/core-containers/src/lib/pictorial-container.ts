@@ -1,14 +1,18 @@
-import {
-  DocumentService,
-  IDocumentService,
-} from '@webade-web-components/core-services';
+import { IDocumentService } from '@webade-web-components/core-services';
 
 const template = `
 <style>
+:host{
+  box-sizing: border-box;
+}
 .pictorial-container{
 display:flex;
 flex-flow: row wrap;
 }
+.active{
+ border:1px solid red;
+}
+
 </style>
 <h3 id="pictorial-header">
 <h3>
@@ -63,8 +67,8 @@ export class PictorialContainer extends HTMLElement {
 
   constructor() {
     super();
-    
-    this.onPictorialSelectFnDef =  this.onPictorialSelect.bind(this);
+
+    this.onPictorialSelectFnDef = this.onPictorialSelect.bind(this);
 
     const shadowRoot = this.attachShadow({ mode: 'open' });
     const pictorialTemplate = document.createElement('template');
@@ -86,22 +90,35 @@ export class PictorialContainer extends HTMLElement {
       ).innerHTML = ` ${this.documentData
         .map(
           (document) =>
-            `<webade-pictorial header="${document.name}"></webade-pictorial>`
+            `<webade-pictorial header="${document.name}" id="${document.name}"></webade-pictorial>`
         )
         .join('')}`;
     }, 1000);
   }
 
   connectedCallback() {
-    this.shadowRoot.addEventListener('pictorialSelect',  this.onPictorialSelectFnDef );
+    this.shadowRoot.addEventListener(
+      'pictorialSelect',
+      this.onPictorialSelectFnDef
+    );
   }
 
   disconnectedCallback() {
-    this.shadowRoot.removeEventListener('pictorialSelect',  this.onPictorialSelectFnDef );
+    this.shadowRoot.removeEventListener(
+      'pictorialSelect',
+      this.onPictorialSelectFnDef
+    );
   }
 
   onPictorialSelect(ele) {
     console.log(ele);
+    const id = '#' + ele.detail;
+
+    // logic to deselect the
+    this.shadowRoot.querySelectorAll('webade-pictorial').forEach((ele) => {
+      ele.classList.remove('active');
+    });
+    this.shadowRoot.querySelector(id).classList.add('active');
   }
 }
 

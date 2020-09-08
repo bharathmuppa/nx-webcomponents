@@ -9,8 +9,8 @@ import { DocumentService } from '@webade-web-components/core-services';
 export class AppComponent {
   title = 'ng-dicom-viewer';
   public documentService: DocumentService;
+  
   constructor() {
     this.documentService = new DocumentService();
-    
   }
 }
