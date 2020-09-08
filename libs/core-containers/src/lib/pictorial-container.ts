@@ -90,7 +90,8 @@ export class PictorialContainer extends HTMLElement {
       ).innerHTML = ` ${this.documentData
         .map(
           (document) =>
-            `<webade-pictorial header="${document.name}" id="${document.name}"></webade-pictorial>`
+            `<webade-pictorial header="${document.name}" id="${document.name}" avatar="${document.pic}">
+            </webade-pictorial>`
         )
         .join('')}`;
     }, 1000);
@@ -98,27 +99,36 @@ export class PictorialContainer extends HTMLElement {
 
   connectedCallback() {
     this.shadowRoot.addEventListener(
-      'pictorialSelect',
+      'pictorialItemSelect',
       this.onPictorialSelectFnDef
     );
   }
 
   disconnectedCallback() {
     this.shadowRoot.removeEventListener(
-      'pictorialSelect',
+      'pictorialItemSelect',
       this.onPictorialSelectFnDef
     );
   }
 
   onPictorialSelect(ele) {
     console.log(ele);
-    const id = '#' + ele.detail;
+    const id = '#' + ele.detail.id;
 
     // logic to deselect the
     this.shadowRoot.querySelectorAll('webade-pictorial').forEach((ele) => {
       ele.classList.remove('active');
     });
     this.shadowRoot.querySelector(id).classList.add('active');
+
+    this.dispatchEvent(
+      new CustomEvent('pictorialSelect', {
+        bubbles: true,
+        cancelable: false,
+        composed: false,
+        detail: ele.detail,
+      })
+    );
   }
 }
 

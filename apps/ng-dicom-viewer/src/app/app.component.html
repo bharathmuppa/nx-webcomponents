@@ -1,8 +1,11 @@
 <div fxLayout="row">
   <pictorial-container
     fxFlex="300px"
-    [header]="title"
+    [header]="pictorialHeader"
     [documentService]="documentService"
   ></pictorial-container>
-  <div fxFlex></div>
+  <div fxFlex class="viewer" fxLayout="column">
+    <h3 *ngIf="selectedPictorial">Details</h3>
+    <img [src]="selectedPictorial.pic" />
+    </div>
 </div>

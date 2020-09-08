@@ -1,23 +1,35 @@
-const template  = `
+const template = `
 <style>
 :host{
     box-sizing: border-box;
-}
-.pictorial{
     width : 100px;
     height: 100px;
-    background: var(--primary,black);
     display: inline-block;
     text-align: center;
     margin: 1rem;
     color: white;
 }
+img{
+    max-width: 100px;
+    max-height: 70px;
+    width: 100px;
+    height: 70px;
+  }
+ #pictorial{
+    width : 100px;
+    height: 100px; 
+ } 
 </style>
-<div class="pictorial" id="pictorial" ></div>
-`
+
+<div  id="pictorial">
+<img alt="dicom-image" id="avatar"/>
+<span class="pictorial" >
+</span>
+</div>
+
+`;
 
 export class Pictorial extends HTMLElement {
-
   private selectEvent: CustomEvent;
 
   constructor() {
@@ -25,19 +37,27 @@ export class Pictorial extends HTMLElement {
 
     const shadowRoot = this.attachShadow({ mode: 'open' });
     const pictorialTemplate = document.createElement('template');
-    pictorialTemplate.innerHTML = template ;
+    pictorialTemplate.innerHTML = template;
 
     shadowRoot.appendChild(pictorialTemplate.content.cloneNode(true));
-    shadowRoot.querySelector('#pictorial').innerHTML = this.getAttribute("header");
+    shadowRoot.querySelector('.pictorial').innerHTML = this.getAttribute(
+      'header'
+    );
+    shadowRoot
+      .querySelector('#avatar')
+      .setAttribute('src', this.getAttribute('avatar'));
   }
 
   pictorialSelected() {
     this.dispatchEvent(
-      new CustomEvent('pictorialSelect', {
+      new CustomEvent('pictorialItemSelect', {
         bubbles: true,
         cancelable: false,
-        composed: true,
-        detail: this.getAttribute("header"),
+        composed: false,
+        detail: {
+          id: this.getAttribute('header'),
+          pic: this.getAttribute('avatar'),
+        },
       })
     );
   }
