@@ -1,54 +1,41 @@
+const template  = `
+<style>
+
+.pictorial{
+    width : 100px;
+    height: 100px;
+    background: var(--primary,black);
+    display: inline-block;
+    text-align: center;
+    margin: 1rem;
+    color: white;
+}
+</style>
+<div class="pictorial" id="pictorial" ></div>
+`
+
 export class Pictorial extends HTMLElement {
-  static get observedAttributes() {
-    return ['header'];
-  }
- 
-  get header() {
-    return this.getAttribute('header');
-  }
-  set header(val) {
-    if (val) {
-      this.setAttribute('header', val);
-    } else {
-      this.removeAttribute('header');
-    }
-  }
 
   private selectEvent: CustomEvent;
 
   constructor() {
     super();
-    const name = 'hello world';
+
     const shadowRoot = this.attachShadow({ mode: 'open' });
     const pictorialTemplate = document.createElement('template');
-    pictorialTemplate.innerHTML = `
-          <style>
-          :host {  }
-          .pictorial{
-              width : 100px;
-              height: 100px;
-              background: black;
-              display: inline-block;
-              text-align: center;
-              margin: 1rem;
-              color: white;
-          }
-          </style>
-          <div class="pictorial" id="pictorial" >${this.header}</div>
-        
-        `;
+    pictorialTemplate.innerHTML = template ;
 
     shadowRoot.appendChild(pictorialTemplate.content.cloneNode(true));
+    shadowRoot.querySelector('#pictorial').innerHTML = this.getAttribute("header");
   }
 
   pictorialSelected() {
-    console.log(this.header);
     this.dispatchEvent(
       new CustomEvent('pictorialSelect', {
         bubbles: true,
         cancelable: false,
         composed: true,
-        detail: this.header,
+        detail: this.getAttribute("header"),
       })
     );
   }

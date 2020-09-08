@@ -3,9 +3,25 @@ import {
   IDocumentService,
 } from '@webade-web-components/core-services';
 
+const template = `
+<style>
+.pictorial-container{
+display:flex;
+flex-flow: row wrap;
+}
+</style>
+<h3 id="pictorial-header">
+<h3>
+<div class="pictorial-container" id="pictorial-container" >
+</div>
+<div>
+</div>
+`;
+
 export class PictorialContainer extends HTMLElement {
   private documentData: any[];
   private _documentService?: IDocumentService;
+  private onPictorialSelectFnDef;
   static get observedAttributes() {
     return ['header', 'documentService'];
   }
@@ -47,28 +63,23 @@ export class PictorialContainer extends HTMLElement {
 
   constructor() {
     super();
-    const documentService = new DocumentService();
+    
+    this.onPictorialSelectFnDef =  this.onPictorialSelect.bind(this);
 
     const shadowRoot = this.attachShadow({ mode: 'open' });
     const pictorialTemplate = document.createElement('template');
-    pictorialTemplate.innerHTML = `
-    <style>
-.pictorial-container{
-display:flex;
-flex-flow: row wrap;
-}
-    </style>
-    <h3 id="pictorial-header">
-    ${this.header} 
-    <h3>
-    <div class="pictorial-container" id="pictorial-container" >
-    </div>
-<div>
-</div>
-    `;
+
+    pictorialTemplate.innerHTML = template;
+
     shadowRoot.appendChild(pictorialTemplate.content.cloneNode(true));
+
+    // Just to emulate asynchronous behavior
     setTimeout(() => {
       this.documentData = this._documentService.createDocuments();
+
+      if (!this.documentData) {
+        return;
+      }
 
       this.shadowRoot.querySelector(
         '#pictorial-container'
@@ -82,9 +93,15 @@ flex-flow: row wrap;
   }
 
   connectedCallback() {
-    this.shadowRoot.addEventListener('pictorialSelect', (ele) => {
-      console.log(ele);
-    });
+    this.shadowRoot.addEventListener('pictorialSelect',  this.onPictorialSelectFnDef );
+  }
+
+  disconnectedCallback() {
+    this.shadowRoot.removeEventListener('pictorialSelect',  this.onPictorialSelectFnDef );
+  }
+
+  onPictorialSelect(ele) {
+    console.log(ele);
   }
 }
 
